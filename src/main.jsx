@@ -16,6 +16,7 @@ import Login from './pages/Login.jsx';
 import PrivateRoute from './components/PrivateRoute.jsx';
 import Logout from './pages/Logout.jsx';
 import Register from './pages/Register.jsx';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const router = createBrowserRouter([
   {

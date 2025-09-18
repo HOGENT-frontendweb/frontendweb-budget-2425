@@ -27,7 +27,7 @@ const PlaceDetail = () => {
   return (
     <>
       <AsyncData loading={placeLoading} error={placeError}>
-        <h1>Place {place.name}</h1>
+        <h1 className="mb-4">Place {place.name}</h1>
         <TransactionsTable transactions={place.transactions} />
       </AsyncData>
     </>

@@ -1,6 +1,8 @@
 // src/components/transactions/TransactionsTable.jsx
+
 import Transaction from './Transaction';
 import { useThemeColors } from '../../contexts/theme';
+import Table from 'react-bootstrap/Table';
 
 function TransactionsTable({ transactions, onDelete }) {
   const { theme } = useThemeColors();
@@ -11,24 +13,27 @@ function TransactionsTable({ transactions, onDelete }) {
   }
 
   return (
-    <div>
-      <table className={`table table-hover table-responsive table-${theme}`}>
-        <thead>
-          <tr>
-            <th>Date</th>
-            <th>User</th>
-            <th>Place</th>
-            <th className='text-end'>Amount</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          {transactions.map((transaction) => (
-            <Transaction key={transaction.id} {...transaction} onDelete={onDelete} />
-          ))}
-        </tbody>
-      </table>
-    </div>
+    <Table
+      hover
+      responsive
+      variant={theme}
+      className="mb-0"
+    >
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>User</th>
+          <th>Place</th>
+          <th className="text-end">Amount</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {transactions.map((transaction) => (
+          <Transaction key={transaction.id} {...transaction} onDelete={onDelete} />
+        ))}
+      </tbody>
+    </Table>
   );
 }
 

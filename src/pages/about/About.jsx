@@ -3,7 +3,7 @@ import { LoremIpsum } from 'react-lorem-ipsum';
 import { Outlet, Link } from 'react-router-dom';
 
 const About = () => (
-  <div>
+  <>
     <h1>Over ons</h1>
     <div>
       <LoremIpsum p={2} />
@@ -21,7 +21,7 @@ const About = () => (
       </ul>
     </div>
     <Outlet />
-  </div>
+  </>
 );
 
 export const Services = () => (

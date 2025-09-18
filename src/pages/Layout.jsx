@@ -1,15 +1,19 @@
 // src/components/Layout.jsx
+
 import { Outlet, ScrollRestoration } from 'react-router-dom';
-import Navbar from '../components/Navbar';
+import NavigationBar from '../components/Navbar';
 import { useThemeColors } from '../contexts/theme';
+import Container from 'react-bootstrap/Container';
 
 export default function Layout() {
   const { theme, textTheme } = useThemeColors();
   return (
-    <div className={`container-xl bg-${theme} text-${textTheme}`}>
-      <Navbar />
-      <Outlet />
+    <Container className={`bg-${theme} text-${textTheme} pb-4`}>
+      <NavigationBar />
+      <div className="m-4" >
+        <Outlet />
+      </div>
       <ScrollRestoration />
-    </div >
+    </Container >
   );
 }

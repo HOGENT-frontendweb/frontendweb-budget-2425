@@ -5,6 +5,7 @@ import { getAll, save, getById } from '../../api';
 import useSWRMutation from 'swr/mutation';
 import TransactionForm from '../../components/transactions/TransactionForm.jsx';
 import AsyncData from '../../components/AsyncData';
+import Container from 'react-bootstrap/Container';
 
 export default function AddOrEditTransaction() {
   const { id } = useParams();
@@ -28,17 +29,19 @@ export default function AddOrEditTransaction() {
 
   return (
     <>
-      <h1>{id ? 'Edit' : 'Add'} transaction</h1>
-      <AsyncData
-        error={transactionError || placesError || saveError}
-        loading={transactionLoading || placesLoading}
-      >
-        <TransactionForm
-          places={places}
-          transaction={transaction}
-          saveTransaction={saveTransaction}
-        />
-      </AsyncData>
+      <Container className="py-4" style={{ maxWidth: 500 }}>
+        <h1 className="mb-4">{id ? 'Edit' : 'Add'} transaction</h1>
+        <AsyncData
+          error={transactionError || placesError || saveError}
+          loading={transactionLoading || placesLoading}
+        >
+          <TransactionForm
+            places={places}
+            transaction={transaction}
+            saveTransaction={saveTransaction}
+          />
+        </AsyncData>
+      </Container>
     </>
   );
 }

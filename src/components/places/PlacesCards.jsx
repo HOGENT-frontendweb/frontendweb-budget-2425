@@ -1,9 +1,12 @@
 import Place from './Place';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 export default function PlacesCards({
-  places, onRate, onDelete,
+  places, onRate, onDelete, favorites,
 }) {
 
+  console.log(favorites);
   if (places.length === 0) {
     return (
       <div className="alert alert-info">
@@ -13,16 +16,21 @@ export default function PlacesCards({
   }
 
   return (
-    <div className="grid">
-      <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xxl-4 g-3">
-        {places
-          .sort((a, b) => a.name.toUpperCase().localeCompare(b.name.toUpperCase()))
-          .map((p) => (
-            <div className="col" key={p.id}>
-              <Place {...p} onRate={onRate} onDelete={onDelete}/>
-            </div>
-          ))}
-      </div>
-    </div>
+
+    <Row className="g-3" xs={1} md={2} lg={3} >
+      {places
+        .sort((a, b) => a.name.toUpperCase().localeCompare(b.name.toUpperCase()))
+        .map((p) => {
+          console.log(favorites);
+          const favorite = favorites.some((f) => f.id == p.id);
+          console.log(favorite, p.id);
+          return (
+            <Col key={p.id} className="mb-3">
+              <Place {...p} onRate={onRate} onDelete={onDelete} favorite={favorite} />
+            </Col>
+          );
+        })}
+    </Row>
+
   );
 }

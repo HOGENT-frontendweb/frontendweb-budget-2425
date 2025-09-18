@@ -3,6 +3,12 @@ import { useNavigate, Link } from 'react-router-dom';
 import LabelInput from '../LabelInput';
 import { FormProvider, useForm } from 'react-hook-form';
 import SelectList from '../SelectList';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
+import ButtonGroup from 'react-bootstrap/ButtonGroup';
+
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 const EMPTY_TRANSACTION = {
   id: undefined,
@@ -72,6 +78,7 @@ export default function TransactionForm({ places = [], transaction = EMPTY_TRANS
     await saveTransaction({
       id: transaction?.id,
       ...values,
+      placeId: Number(values.placeId),
     }, {
       throwOnError: false,
       onSuccess: () => navigate('/transactions'),
@@ -80,7 +87,8 @@ export default function TransactionForm({ places = [], transaction = EMPTY_TRANS
 
   return (
     <FormProvider {...methods}>
-      <form onSubmit={handleSubmit(onSubmit)} className='mb-5'>
+
+      <Form onSubmit={handleSubmit(onSubmit)} className='mb-4'>
         <LabelInput
           label='Date'
           name='date'
@@ -103,26 +111,29 @@ export default function TransactionForm({ places = [], transaction = EMPTY_TRANS
           validationRules={validationRules.amount}
           data-cy='amount_input'
         />
-        <div className='clearfix'>
-          <div className='btn-group float-end'>
-            <button
-              type='submit'
-              className='btn btn-primary'
-              data-cy='submit_transaction'
-              disabled={isSubmitting}
-            >
-              {transaction?.id ? 'Save transaction' : 'Add transaction'}
-            </button>
-            <Link
-              disabled={isSubmitting}
-              className='btn btn-light'
-              to='/transactions'
-            >
-              Cancel
-            </Link>
-          </div>
-        </div>
-      </form>
-    </FormProvider>
+        <Row className="justify-content-end">
+          <Col xs="auto">
+            <ButtonGroup>
+              <Button
+                type='submit'
+                variant="primary"
+                data-cy='submit_transaction'
+                disabled={isSubmitting}
+              >
+                {transaction?.id ? 'Save transaction' : 'Add transaction'}
+              </Button>
+              <Link
+                disabled={isSubmitting}
+                className='btn btn-light'
+                to='/transactions'
+              >
+                Cancel
+              </Link>
+            </ButtonGroup>
+          </Col>
+        </Row>
+      </Form>
+
+    </FormProvider >
   );
 }

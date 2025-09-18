@@ -1,4 +1,5 @@
 import { useFormContext } from 'react-hook-form';
+import Form from 'react-bootstrap/Form';
 
 export default function SelectList({
   label, name, placeholder, items, validationRules, ...rest
@@ -14,31 +15,26 @@ export default function SelectList({
   const hasError = name in errors;
 
   return (
-    <div className="mb-3">
-      <label htmlFor={name} className="form-label">
-        {label}
-      </label>
-      <select
+    <Form.Group className="mb-3" controlId={name}>
+      <Form.Label>{label}</Form.Label>
+      <Form.Select
         {...register(name, validationRules)}
-        id={name}
-        className="form-select"
         disabled={isSubmitting}
+        isInvalid={hasError}
         {...rest}
       >
         <option value="" disabled>
           {placeholder}
         </option>
-        {items.map(({
-          id, name,
-        }) => (
+        {items.map(({ id, name }) => (
           <option key={id} value={id}>{name}</option>
         ))}
-      </select>
-      {hasError ? (
-        <div className="form-text text-danger">
+      </Form.Select>
+      {hasError && (
+        <Form.Text className="text-danger">
           {errors[name].message}
-        </div>
-      ) : null}
-    </div>
+        </Form.Text>
+      )}
+    </Form.Group>
   );
 }

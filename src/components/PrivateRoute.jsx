@@ -1,5 +1,8 @@
 import { Navigate, Outlet, useLocation } from 'react-router-dom';
 import { useAuth } from '../contexts/auth';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 export default function PrivateRoute() {
   const { ready, isAuthed } = useAuth();
@@ -7,17 +10,16 @@ export default function PrivateRoute() {
 
   if (!ready) {
     return (
-      <div className='container'>
-        <div className='row'>
-          <div className='col-12'>
+      <Container>
+        <Row>
+          <Col>
             <h1>Loading...</h1>
             <p>
-              Please wait while we are checking your credentials and loading the
-              application.
+              Please wait while we are checking your credentials and loading the application.
             </p>
-          </div>
-        </div>
-      </div>
+          </Col>
+        </Row>
+      </Container>
     );
   }
 

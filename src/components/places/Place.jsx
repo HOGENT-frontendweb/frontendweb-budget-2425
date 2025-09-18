@@ -1,12 +1,14 @@
-// src/components/places/Place.jsx
 import StarRating from './StarRating';
 import { Link } from 'react-router-dom';
 import { IoTrashOutline } from 'react-icons/io5';
 import { memo, useCallback } from 'react';
 import { useThemeColors } from '../../contexts/theme';
+import Card from 'react-bootstrap/Card';
+import Button from 'react-bootstrap/Button';
+import { IoHeart } from 'react-icons/io5';
 
-const PlaceMemoized = memo(function Place({ id, name, rating, onDelete, onRate }) {
-  const { theme, textTheme } = useThemeColors();
+const PlaceMemoized = memo(function Place({ id, name, rating, onDelete, onRate, favorite }) {
+  const { theme } = useThemeColors();
 
   const handleRate = useCallback((newRating) => {
     onRate({ id, name, rating: newRating });
@@ -17,17 +19,29 @@ const PlaceMemoized = memo(function Place({ id, name, rating, onDelete, onRate }
   }, [id, onDelete]);
 
   return (
-    <div className={`card bg-${theme} border-${textTheme} text-${textTheme} mb-4`} >
-      <div className='card-body'>
-        <h5 className='card-title'>  <Link to={`/places/${id}`}>{name}</Link></h5>
-        <div className='card-text'>
+    <Card
+      data-bs-theme={theme}
+      bg={theme}
+      className="mb-4 position-relative"
+    >
+      <Button
+        style={{ background: 'none', border: 'none', padding: 0, cursor: 'pointer', position: 'absolute', top: 15, right: 15, zIndex: 2 }}
+        aria-label="Markeer als favoriet"
+      >
+        <IoHeart color={favorite ? 'red' : 'white'} size={24} />
+      </Button>
+      <Card.Body>
+        <Card.Title>
+          <Link to={`/places/${id}`}>{name}</Link>
+        </Card.Title>
+        <Card.Text>
           <StarRating selectedStars={rating} onRate={handleRate} />
-        </div>
-        <button className='btn btn-primary' onClick={handleDelete}>
+        </Card.Text>
+        <Button variant="primary" onClick={handleDelete}>
           <IoTrashOutline />
-        </button>
-      </div>
-    </div >
+        </Button>
+      </Card.Body>
+    </Card>
   );
 });
 

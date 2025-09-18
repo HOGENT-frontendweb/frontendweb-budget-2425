@@ -1,4 +1,5 @@
 import { useFormContext } from 'react-hook-form';
+import Form from 'react-bootstrap/Form';
 
 export default function LabelInput({
   label,
@@ -15,21 +16,20 @@ export default function LabelInput({
   const hasError = name in errors;
 
   return (
-    <div className='mb-3'>
-      <label htmlFor={name} className='form-label'>
-        {label}
-      </label>
-      <input
+    <Form.Group className="mb-3" controlId={name}>
+      <Form.Label>{label}</Form.Label>
+      <Form.Control
         {...register(name, validationRules)}
-        id={name}
         type={type}
         disabled={isSubmitting}
-        className='form-control'
+        isInvalid={hasError}
         {...rest}
       />
-      {hasError ? (
-        <div className='form-text text-danger' data-cy='label_input_error'>{errors[name].message}</div>
-      ) : null}
-    </div>
+      {hasError && (
+        <Form.Text className="text-danger" data-cy="label_input_error">
+          {errors[name].message}
+        </Form.Text>
+      )}
+    </Form.Group>
   );
 }

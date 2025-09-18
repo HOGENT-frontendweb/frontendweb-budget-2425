@@ -5,15 +5,19 @@ import { useNavigate } from 'react-router-dom';
 import {
   FormProvider, useForm,
 } from 'react-hook-form';
+
 import LabelInput from '../components/LabelInput';
 import { useAuth } from '../contexts/auth';
 import Error from '../components/Error';
-import { useThemeColors } from '../contexts/theme';
+import Container from 'react-bootstrap/Container';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
+import ButtonGroup from 'react-bootstrap/ButtonGroup';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 export default function Register() {
-  const {
-    theme, oppositeTheme,
-  } = useThemeColors();
+
   const {
     error, loading, register,
   } = useAuth();
@@ -62,15 +66,10 @@ export default function Register() {
 
   return (
     <FormProvider {...methods}>
-      <div className={`container bg-${theme} text-${oppositeTheme}`}>
-        <form
-          className='d-flex flex-column'
-          onSubmit={handleSubmit(handleRegister)}
-        >
-          <h1>Register</h1>
-
+      <Container className="py-4" style={{ maxWidth: 500 }}>
+        <Form onSubmit={handleSubmit(handleRegister)}>
+          <h1 className="mb-4">Register</h1>
           <Error error={error} />
-
           <LabelInput
             label='Name'
             type='text'
@@ -78,7 +77,6 @@ export default function Register() {
             placeholder='Your Name'
             validationRules={validationRules.name}
           />
-
           <LabelInput
             label='Email'
             type='text'
@@ -101,27 +99,28 @@ export default function Register() {
             validationRules={validationRules.confirmPassword}
           />
 
-          <div className='clearfix'>
-            <div className='btn-group float-end'>
-              <button
-                type='submit'
-                className='btn btn-primary'
-                disabled={loading}
-              >
-                Register
-              </button>
-
-              <button
-                type='button'
-                className='btn btn-light'
-                onClick={handleCancel}
-              >
-                Cancel
-              </button>
-            </div>
-          </div>
-        </form>
-      </div>
+          <Row className="justify-content-end">
+            <Col xs="auto">
+              <ButtonGroup>
+                <Button
+                  variant="primary"
+                  type="submit"
+                  disabled={loading}
+                >
+                  Register
+                </Button>
+                <Button
+                  variant="light"
+                  type="button"
+                  onClick={handleCancel}
+                >
+                  Cancel
+                </Button>
+              </ButtonGroup>
+            </Col>
+          </Row>
+        </Form>
+      </Container>
     </FormProvider>
   );
 }

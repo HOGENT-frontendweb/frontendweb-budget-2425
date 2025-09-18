@@ -4,6 +4,12 @@ import { FormProvider, useForm } from 'react-hook-form';
 import LabelInput from '../components/LabelInput';
 import { useAuth } from '../contexts/auth';
 import Error from '../components/Error';
+import Container from 'react-bootstrap/Container';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
+import ButtonGroup from 'react-bootstrap/ButtonGroup';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 const validationRules = {
   email: {
@@ -48,52 +54,51 @@ export default function Login() {
 
   return (
     <FormProvider {...methods}>
-      <div className='container'>
-        <form
-          className='d-flex flex-column'
-          onSubmit={handleSubmit(handleLogin)}
-        >
-
-          <h1>Sign in</h1>
+      <Container className="py-4" style={{ maxWidth: 500 }}>
+        <Form onSubmit={handleSubmit(handleLogin)}>
+          <h1 className="mb-4">Sign in</h1>
           <Error error={error} />
+
           <LabelInput
-            label='email'
+            label='Email'
             type='text'
             name='email'
             placeholder='your@email.com'
             validationRules={validationRules.email}
             data-cy='email_input'
           />
+
           <LabelInput
-            label='password'
+            label='Password'
             type='password'
             name='password'
             validationRules={validationRules.password}
             data-cy='password_input'
           />
-          <div className='clearfix'>
-            <div className='btn-group float-end'>
-              <button
-                type='submit'
-                className='btn btn-primary'
-                disabled={loading}
-                data-cy='submit_btn'
-              >
 
-                Sign in
-              </button>
-
-              <button
-                type='button'
-                className='btn btn-light'
-                onClick={handleCancel}
-              >
-                Cancel
-              </button>
-            </div>
-          </div>
-        </form>
-      </div>
+          <Row className="justify-content-end">
+            <Col xs="auto">
+              <ButtonGroup>
+                <Button
+                  variant="primary"
+                  type="submit"
+                  disabled={loading}
+                  data-cy="submit_btn"
+                >
+                  Sign in
+                </Button>
+                <Button
+                  variant="light"
+                  type="button"
+                  onClick={handleCancel}
+                >
+                  Cancel
+                </Button>
+              </ButtonGroup>
+            </Col>
+          </Row>
+        </Form>
+      </Container>
     </FormProvider>
   );
 }
