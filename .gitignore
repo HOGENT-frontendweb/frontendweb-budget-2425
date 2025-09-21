@@ -128,3 +128,9 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+pnpm-lock.yaml
+
+# IDE specific folders
+.vscode
+.idea

@@ -1,3 +1,9 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-dark: #212529;
+}
+
 a.nav-link.active {
   color: blue;
 }

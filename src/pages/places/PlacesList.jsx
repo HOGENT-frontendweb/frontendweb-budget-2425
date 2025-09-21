@@ -13,7 +13,7 @@ export default function PlacesList() {
 
   return (
     <>
-      <h1>Places</h1>
+      <h1 className="text-4xl mb-2">Places</h1>
 
       <AsyncData loading={isLoading} error={error || deleteError || saveError}>
         <PlacesCards places={data} onRate={savePlace} onDelete={deletePlace} />

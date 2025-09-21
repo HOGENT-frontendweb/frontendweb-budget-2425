@@ -1,11 +1,11 @@
 // src/pages/transactions/TransactionList.jsx
-import { useState, useMemo, useCallback } from 'react';
+import {useState, useMemo, useCallback} from 'react';
 import TransactionsTable from '../../components/transactions/TransactionsTable';
 import AsyncData from '../../components/AsyncData';
 import useSWR from 'swr';
 import useSWRMutation from 'swr/mutation';
-import { getAll, deleteById } from '../../api';
-import { Link } from 'react-router-dom';
+import {getAll, deleteById} from '../../api';
+import {Link} from 'react-router-dom';
 
 export default function TransactionList() {
   const [text, setText] = useState('');
@@ -17,7 +17,7 @@ export default function TransactionList() {
     error,
   } = useSWR('transactions', getAll);
 
-  const { trigger: deleteTransaction, error: deleteError } = useSWRMutation(
+  const {trigger: deleteTransaction, error: deleteError} = useSWRMutation(
     'transactions',
     deleteById,
   );
@@ -37,12 +37,12 @@ export default function TransactionList() {
 
   return (
     <>
-      <h1>Transactions</h1>
-      <div className='input-group mb-3 w-50'>
+      <h1 className="text-4xl mb-2">Transactions</h1>
+      <div className='flex mb-3 w-1/2'>
         <input
           type='search'
           id='search'
-          className='form-control rounded'
+          className='rounded grow-1 bg-white p-1 text-black'
           placeholder='Search'
           value={text}
           onChange={(e) => setText(e.target.value)}
@@ -50,22 +50,20 @@ export default function TransactionList() {
         />
         <button
           type='button'
-          className='btn btn-outline-primary'
+          className='py-2 px-2.5 rounded-md text-blue-600 border border-blue-600'
           onClick={() => setSearch(text)}
           data-cy='transactions_search_btn'
         >
           Search
         </button>
-        <div className='clearfix'>
-          <Link to='/transactions/add' className='btn btn-primary float-end'>
-            Add transaction
-          </Link>
-        </div>
+        <Link to='/transactions/add' className='py-2 px-2.5 rounded-md bg-blue-600 text-white'>
+          Add transaction
+        </Link>
       </div>
 
       <div className='mt-4'>
         <AsyncData loading={isLoading} error={error || deleteError}>
-          <TransactionsTable transactions={filteredTransactions} onDelete={handleDeleteTransaction} />
+          <TransactionsTable transactions={filteredTransactions} onDelete={handleDeleteTransaction}/>
         </AsyncData>
       </div>
     </>

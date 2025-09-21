@@ -6,7 +6,7 @@ import { useThemeColors } from '../contexts/theme';
 export default function Layout() {
   const { theme, textTheme } = useThemeColors();
   return (
-    <div className={`container-xl bg-${theme} text-${textTheme}`}>
+    <div className="max-w-6xl bg-dark text-white mx-auto p-4 pt-0">
       <Navbar />
       <Outlet />
       <ScrollRestoration />
